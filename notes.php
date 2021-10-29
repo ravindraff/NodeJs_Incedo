@@ -24,3 +24,16 @@ let books = [{
     "publisher": "O'Reilly Media",
     "numOfPages": 460,
 }];
+
+
+
+
+Builds a products api
+{
+	productId,ProductName,ManuDate,ExpDate,Price
+}
+
+Node Project -- npm init -y
+install the depe
+product.js -- configure all the verbs
+Test it with postman
