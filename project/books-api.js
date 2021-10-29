@@ -44,6 +44,22 @@ app.use(express.json());
 app.get('/books',(req,res)=>{
     res.json(books);
 })
+app.post('/books',(req,res)=>{
+    const book = req.body
+    books.push(book);
+    res.send("Book is added to database")
+})
+app.get('/books/:bookid',(req,res)=>{
+    const bookid = req.params.bookid
+    for(let book of books){
+        if(book.isbn == bookid){
+            res.json(book)
+            return;
+        }
+    }
+    res.status(404).send("Book Not Found")
+
+})
 
 app.listen(port,()=>{
     console.log(`Server Started successfully on port ${port}`)
