@@ -60,7 +60,28 @@ app.get('/books/:bookid',(req,res)=>{
     res.status(404).send("Book Not Found")
 
 })
-
+app.delete('/books/:bookid',(req,res)=>{
+    const bookid = req.params.bookid;
+    books = books.filter(book =>{
+        if(book.isbn !== bookid){
+            return true;
+        }else{
+            return false;
+        }
+    })
+    res.send("Book is deleted")
+})
+app.put('/books/:bookid',(req,res)=>{
+    const bookid = req.params.bookid
+    const newBook = req.body
+    for (let i=0;i<books.length;i++){
+        let book = books[i]
+        if(book.isbn === bookid){
+            books[i] = newBook
+        }
+    }
+    res.send("Book is Edited")
+})
 app.listen(port,()=>{
     console.log(`Server Started successfully on port ${port}`)
 })
