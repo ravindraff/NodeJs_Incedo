@@ -1,5 +1,58 @@
 
+npm install -g express-generator
+express --view=pug myapp
+cd myapp
+npm install
+npm start
+in browser localhost:3000
 
+==============================
+create new folder
+npm init -y
+yarn add cors express --save
+create new file products-api.js
+
+Builds a products api
+{
+	productId,ProductName,ManuDate,ExpDate,Price
+}
+
+Node Project -- npm init -y
+install the depe
+product.js -- configure all the verbs
+Test it with postman
+
+
+
+
+
+=>create new folder 
+=>in that folder npm init -y
+=>then add dependencies like cors,express
+=>yarn add cors express --save
+=>create api file like books-api.js
+
+books-api.js:
+=================
+//import cors and express modules
+const express = require("express")
+const cors = require("cors");
+
+//create app using express it is used to create rest services
+const app = express();
+
+//to enable ports 
+app.use(cors())
+
+
+//to allow corsorigin
+const allowCrossOrigin = (req,res,next)=>{
+	res.header("Access-Control-Allow-Origin","*");
+    res.header("Access-Control-Allow-Methods","GET,POST,PUT,DELETE")
+    res.header("Access-Control-Allow-Headers","Content-Type");
+    next();
+}
+//Books array
 let books = [{
     "isbn": "9781593275846",
     "title": "Eloquent JavaScript, Second Edition",
@@ -26,14 +79,64 @@ let books = [{
 }];
 
 
+app.use(express.urlencoded({ extended: false }));
+app.use(allowCrossOrigin)
+app.use(express.json());
 
+//get Request
+app.get("/",(req,res)=>{
+	res.send("Get Request")
+});
 
-Builds a products api
-{
-	productId,ProductName,ManuDate,ExpDate,Price
-}
+//get all books
+app.get("/books",(req,res)=>{
+	res.json(books)
+});
+//get particular book based on id
+app.get("/books/:bid",(req,res)=>{
+	const bookid = req.params.id
+	for(let book as books){
+		if(book.isbn===bookid){
+			res.json(book);
+			return;
+		}
+	}
+	res.send(404).send("Book is not available")
+})
+//update particular book 
+app.put("/books/:bid",(req,res)=>{
+	const bookid = req.params.bid
+	const newBook = req.body
+	for(let i=0;i<books.length;i++){
+		book[i] = book
+		if(book.isbn!==bookid){
+			books[i] = newBook
+		}
+	}
+	res.send("Book is Edited")
+});
+//add books
+app.post("/books",(req,res)=>{
+	const newBook = req.body
+	books.push(newBook)
+	res.send("Book is added success")
+})
+//delete book
+app.delete("/books/:bid",(req,res)=>{
+	const bid = req.params.bid
+	books = books.filter(book=>{
+		if(book.isbn!==bid){
+			return true
+		}else{
+			return false
+		}
+	})
+	res.send("Book is deleted")
+})
+//listening port
+app.listen(port,()=>{
+    console.log(`Server Started successfully on port ${port}`)
+})
 
-Node Project -- npm init -y
-install the depe
-product.js -- configure all the verbs
-Test it with postman
+=>run the node server
+node books-api.js
