@@ -10,7 +10,7 @@ let products = [{
     "expiry_date": "2014-09-01",
     "price": "1000"
 }, {
-    "product_id": "2",
+    "product_id": "2",  
     "product_name": "Product 2",
     "manufacture_date": "2013-02-01",
     "expiry_date": "2014-09-01",
